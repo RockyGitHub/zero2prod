@@ -32,7 +32,7 @@ async fn subscribe_returns_a_200_for_valid_form_data() {
     let body = "name=le%20guin&email=ursula_le_guin%40gmail.com";
     let response = client
         .post(&format!("{}/subscriptions", &app_address))
-        .header("Conte-Type", "application/x-www-form-urlencoded")
+        .header("Content-Type", "application/x-www-form-urlencoded")
         .body(body)
         .send()
         .await
