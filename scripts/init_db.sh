@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#set -x
+set -x
 set -eo pipefail
 
 if ! [ -x "$(command -v psql)" ]; then
@@ -21,7 +21,7 @@ DB_PASSWORD="${POSTGRES_PASSWORD:=password}"
 DB_NAME="${POSTGRES_DB:=newsletter}"
 DB_PORT="${POSTGRES_PORT:=5432}"
 
-if [[ -z "$SKIP_DOCKER}" ]]
+if [[ -z "${SKIP_DOCKER}" ]]
 then
   docker run \
     -e POSTGRES_USER=${DB_USER} \
@@ -42,6 +42,6 @@ echo "Postgres is up and running on port ${DB_PORT} - running migrations now!"
 
 DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}
 export DATABASE_URL
-#sqlx migrate add create_subscriptions_table
+#sqlx migrate add create_subscriptions_table # comment this out? idk
 sqlx database create
 sqlx migrate run
