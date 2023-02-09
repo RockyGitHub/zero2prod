@@ -1,10 +1,14 @@
 use std::net::TcpListener;
 
-use sqlx::{PgConnection, Connection};
-use zero2prod::configuration::{self, get_configuration};
+use sqlx::{PgConnection, Connection, PgPool};
+use zero2prod::configuration::get_configuration;
 
 
 
+pub struct TestApp {
+    pub address: String,
+    pub db_pool: PgPool,
+}
 
 
 fn spawn_app() -> String {
